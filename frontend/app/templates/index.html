@@ -1,26 +1,31 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'style.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrics to Google Slides</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
 <body>
-    <h1>Lyrics to Google Slides Converter!</h1>
-    <form action="" method="POST">
-        <!--We specify this CSRF token for security reasons--->
-        {{ form.csrf_token }}
+    <main class="container">
+        <h1>Lyrics to Google Slides</h1>
+        <p>Paste lyrics below and get a Google Slides presentation. Chord lines and section labels are cleaned up automatically.</p>
 
-        <!--Rendering the form-->
-        <p>
-            <b>{{ form.lyrics.label }}</b><br />
-            {{ form.lyrics }}
+        <form action="" method="POST">
+            {{ form.csrf_token }}
+            <label for="lyrics">
+                {{ form.lyrics.label.text }}
+            </label>
+            {{ form.lyrics(placeholder="Paste your lyrics here...") }}
+            <button type="submit">Create slides</button>
+        </form>
+
+        {% if URL %}
+        <p class="result-link">
+            <a href="{{ URL }}" target="_blank" rel="noopener">Open your slides →</a>
         </p>
-        {{ form.submit }}
-    </form>
-
-    <a href="{{ URL }}">
-        {{ URL }}
-    </a>
+        {% endif %}
+    </main>
 </body>
-
 </html>

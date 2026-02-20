@@ -1,5 +1,8 @@
-h1 {
-    color: blue;
-    font-family: verdana;
-    font-size: 300%;
-  }
+/* Overrides and extras on top of Pico */
+.result-link {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+}
+.result-link a {
+  font-weight: 600;
+}

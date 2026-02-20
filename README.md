@@ -1,6 +1,10 @@
 # lyrics_to_slides
 
-Flask app that turns lyrics into slides. The web app lives in `frontend/`.
+Flask app that turns lyrics into Google Slides. Paste lyrics, get a presentation link.
+
+**Live app:** [web-production-3b3c5.up.railway.app](https://web-production-3b3c5.up.railway.app)
+
+The web app lives in `frontend/`.
 
 ## Deploy on Railway
 
