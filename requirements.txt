@@ -1,0 +1,2 @@
+# For Railway when using repo root: install frontend dependencies
+-r frontend/requirements.txt

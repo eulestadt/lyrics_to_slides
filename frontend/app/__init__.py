@@ -21,5 +21,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+# Create tables if they don't exist (e.g. first deploy with Postgres on Railway)
+with app.app_context():
+    db.create_all()
+
 # Import the views/routes
 from . import views
