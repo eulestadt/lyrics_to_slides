@@ -7,16 +7,24 @@ import collections.abc
 if not hasattr(collections, "MutableMapping"):
     collections.MutableMapping = collections.abc.MutableMapping
 
+import base64
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-# On Railway: create secret.json from env so OAuth works (no file upload)
+# On Railway: create secret.json and storage.json from env so OAuth works (no file upload)
 _creds_json = os.environ.get("GOOGLE_OAUTH_CREDENTIALS_JSON")
 if _creds_json:
-    _secret_path = os.path.join(os.getcwd(), "secret.json")
-    with open(_secret_path, "w") as f:
+    with open(os.path.join(os.getcwd(), "secret.json"), "w") as f:
         f.write(_creds_json)
+_token_json = os.environ.get("GOOGLE_OAUTH_TOKEN_JSON")
+_token_b64 = os.environ.get("GOOGLE_OAUTH_TOKEN_B64")
+if _token_b64:
+    with open(os.path.join(os.getcwd(), "storage.json"), "wb") as f:
+        f.write(base64.standard_b64decode(_token_b64))
+elif _token_json:
+    with open(os.path.join(os.getcwd(), "storage.json"), "w") as f:
+        f.write(_token_json)
 
 # Create database
 db = SQLAlchemy()
