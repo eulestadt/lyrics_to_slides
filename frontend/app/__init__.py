@@ -1,6 +1,12 @@
 """
 Initialize the Flask application
 """
+# Python 3.10+: MutableMapping moved to collections.abc; old uritemplate expects collections.MutableMapping
+import collections
+import collections.abc
+if not hasattr(collections, "MutableMapping"):
+    collections.MutableMapping = collections.abc.MutableMapping
+
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
