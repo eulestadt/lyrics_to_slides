@@ -1,39 +1,12 @@
-from flask_script import Manager
+"""Run Flask CLI. Usage: python manage.py recreate-db"""
+import os
+import sys
 
-from app import app, db
-from app.models import Newbie
+# Ensure app is loaded for Flask CLI
+os.environ.setdefault("FLASK_APP", "run:app")
 
-manager = Manager(app)
-
-
-# Run in terminal with the command: python manage.py recreate_db
-@manager.command
-def recreate_db():
-    """
-    Recreates a local database.
-    """
-    db.drop_all()
-    db.create_all()
-    db.session.commit()
-
-
-# Run in terminal with the command: python manage.py add_fake_data
-@manager.command
-def add_fake_data():
-    """
-    Adds fake data to the local database.
-    """
-    db.session.add(Newbie(
-        first_name="Katie",
-        last_name="Jiang",
-        year=2020))
-    db.session.add(Newbie(
-        first_name="Stephanie",
-        last_name="Shi",
-        year=2020))
-    # TODO: Try adding your own fake data here
-    db.session.commit()
-
+from flask.cli import main
 
 if __name__ == "__main__":
-    manager.run()
+    sys.argv = ["flask"] + (sys.argv[1:] or ["--help"])
+    main()

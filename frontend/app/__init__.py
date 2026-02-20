@@ -27,3 +27,14 @@ with app.app_context():
 
 # Import the views/routes
 from . import views
+
+# CLI (optional)
+import click
+
+@app.cli.command("recreate-db")
+def recreate_db():
+    """Recreate the database tables."""
+    db.drop_all()
+    db.create_all()
+    db.session.commit()
+    click.echo("Database recreated.")
