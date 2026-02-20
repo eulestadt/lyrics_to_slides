@@ -5,6 +5,13 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+# On Railway: create secret.json from env so OAuth works (no file upload)
+_creds_json = os.environ.get("GOOGLE_OAUTH_CREDENTIALS_JSON")
+if _creds_json:
+    _secret_path = os.path.join(os.getcwd(), "secret.json")
+    with open(_secret_path, "w") as f:
+        f.write(_creds_json)
+
 # Create database
 db = SQLAlchemy()
 
